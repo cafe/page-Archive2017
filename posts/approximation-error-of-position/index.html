@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approximation Error of Position | Home</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="http://yongchen.org/posts/approximation-error-of-position/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="YONG">
+<link rel="prev" href="../xiao-mi-shou-ji-lian-jie-dian-nao/" title="小米手机连接电脑" type="text/html">
+<link rel="next" href="../reStructuredText-notes/" title="reStructuredText Notes" type="text/html">
+<meta property="og:site_name" content="Home">
+<meta property="og:title" content="Approximation Error of Position">
+<meta property="og:url" content="http://yongchen.org/posts/approximation-error-of-position/">
+<meta property="og:description" content="Contents
+
+1   cloapp.jl
+1.1   Uniform Sampling
+1.2   Adaptive (Nonuniform) Sampling
+1.2.1   Old Version
+1.2.2   New Version
+1.2.2.1   基本框架
+1.2.2.2   computeError()
+1.2.2.3   lookupTableWithPrecision(e">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2017-02-10T13:59:56+08:00">
+<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="clothoid">
+<meta property="article:tag" content="mathjax">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-inverse navbar-static-top"><div class="container">
+<!-- This keeps the margins nice -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://yongchen.org/">
+
+                <span id="blog-title">Home</span>
+            </a>
+        </div>
+<!-- /.navbar-header -->
+        <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
+            <ul class="nav navbar-nav">
+<li>
+<a href="../">Posts</a>
+                </li>
+<li>
+<a href="../../categories/">Tags</a>
+                </li>
+<li>
+<a href="../../notes/index.html">Notes</a>
+                </li>
+<li>
+<a href="../../archive.html">Archive</a>
+                </li>
+<li>
+<a href="../../rss.xml">RSS</a>
+                </li>
+<li>
+<a href="../../about/index.html">About</a>
+
+                
+            </li>
+</ul>
+<ul class="nav navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        <div class="row">
+            
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Approximation Error of Position</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../../authors/yong/">YONG</a>
+            </span></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2017-02-10T13:59:56+08:00" itemprop="datePublished" title="2017-02-10 13:59">2017-02-10 13:59</time></a></p>
+                <p class="commentline">
+        
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/approximation-error-of-position.html">Comments</a>
+
+
+            
+
+        </p>
+</div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="auto-toc simple">
+<li>
+<a class="reference internal" href="#cloapp-jl" id="id2">1   cloapp.jl</a><ul class="auto-toc">
+<li><a class="reference internal" href="#uniform-sampling" id="id3">1.1   Uniform Sampling</a></li>
+<li>
+<a class="reference internal" href="#adaptive-nonuniform-sampling" id="id4">1.2   Adaptive (Nonuniform) Sampling</a><ul class="auto-toc">
+<li><a class="reference internal" href="#old-version" id="id5">1.2.1   Old Version</a></li>
+<li>
+<a class="reference internal" href="#new-version" id="id6">1.2.2   New Version</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id1" id="id7">1.2.2.1   基本框架</a></li>
+<li><a class="reference internal" href="#computeerror" id="id8">1.2.2.2   <tt class="docutils literal">computeError()</tt></a></li>
+<li><a class="reference internal" href="#lookuptablewithprecision-eps-arclength" id="id9">1.2.2.3   <tt class="docutils literal">lookupTableWithPrecision(eps, arclength)</tt></a></li>
+<li><a class="reference internal" href="#results" id="id10">1.2.2.4   Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<!-- TEASER_END -->
+<div class="section" id="cloapp-jl">
+<h2><a class="toc-backref" href="#id2">1   cloapp.jl</a></h2>
+<div class="section" id="uniform-sampling">
+<h3><a class="toc-backref" href="#id3">1.1   Uniform Sampling</a></h3>
+<p><tt class="docutils literal"><span class="pre">lookupTableEven(num::Int64,</span> theta_max, sigma, unitLen)</tt></p>
+<ul>
+<li>
+<p class="first">Input:</p>
+<ul>
+<li>
+<p class="first"><tt class="docutils literal">num</tt>: number of total segments <span class="math">\(N\)</span>. A larger <span class="math">\(N\)</span> produces longer curve.</p>
+</li>
+<li>
+<p class="first"><tt class="docutils literal">theta_max</tt>: maximum winding angle of each segment. Actually it is
+the maximum difference of the winding angle of each segment.</p>
+<div class="math">
+\begin{equation*}
+\Delta \theta = \theta(s)-\theta_0=\kappa_0 s + \frac{\sigma s^2}{2}
+\end{equation*}
+</div>
+<p>Then, <tt class="docutils literal">theta_max</tt> is <span class="math">\(\Delta \theta_{\max}\)</span>. It is not directly used in the function but as a criterion for checking purpose. We set <tt class="docutils literal">theta_max=0.5*pi</tt> by default.</p>
+<p>明显，因为 <span class="math">\(s\)</span> 是个定值，而 <span class="math">\(\sigma\)</span> 也是定值（设为1），<span class="math">\(\Delta \theta_{\max}\)</span> 出现在 <span class="math">\(\kappa_0\)</span> 取最大时，即最末一段。最后一段的起始曲率由下式得到, 其中 <span class="math">\(N\)</span> 是总的段数。</p>
+<div class="math">
+\begin{equation*}
+\kappa_{0,N} = \sigma (N-1) s
+\end{equation*}
+</div>
+<p>代入到上面的 <span class="math">\(\Delta \theta\)</span> 表达式，得到：</p>
+<div class="math">
+\begin{equation*}
+(N-1) \sigma s^2 + \frac{\sigma s^2}{2} \le \Delta \theta_{\max}=\frac{\pi}{2}
+\end{equation*}
+</div>
+<p>即，当 <span class="math">\(\sigma=1\)</span> 时, <span class="math">\(N\)</span> 与 <span class="math">\(s\)</span> 要符合上述关系式。</p>
+</li>
+<li>
+<p class="first"><tt class="docutils literal">sigma</tt>: sharpness <span class="math">\(\sigma\)</span></p>
+</li>
+<li>
+<p class="first"><tt class="docutils literal">unitLen</tt>: length of each small segment <span class="math">\(s\)</span> (they have the same <tt class="docutils literal">unitLen</tt> since they are uniformly
+sampled)</p>
+</li>
+</ul>
+</li>
+<li>
+<p class="first">Output inside <em>LUT_sameSeg.h5</em>:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal">umax</tt>: an array of maximum lengths of all segments</li>
+<li>
+<tt class="docutils literal">utotal</tt>: an array of total lengths of all previous segments (not including current one)</li>
+<li>
+<tt class="docutils literal">coeff</tt>: an array of bezier coefficients</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="adaptive-nonuniform-sampling">
+<h3><a class="toc-backref" href="#id4">1.2   Adaptive (Nonuniform) Sampling</a></h3>
+<div class="section" id="old-version">
+<h4><a class="toc-backref" href="#id5">1.2.1   Old Version</a></h4>
+<p><tt class="docutils literal"><span class="pre">lookupTable(num::Int64,</span> theta_max, sigma, elasticCoeff)</tt></p>
+<ul class="simple">
+<li>Input:<ul>
+<li>
+<tt class="docutils literal">num</tt>: number of total segments <span class="math">\(N\)</span>. A larger <span class="math">\(N\)</span> produces longer curve.
+(<tt class="docutils literal">N=100</tt> in our draft).</li>
+<li>
+<tt class="docutils literal">theta_max</tt>: maximum winding angle of each segment. Actually it is
+the maximum difference of the winding angle of each segment. (<tt class="docutils literal">theta_max=0.35*pi</tt> in our draft).</li>
+<li>
+<tt class="docutils literal">sigma</tt>: sharpness <span class="math">\(\sigma\)</span>. (<tt class="docutils literal">sigma=1.0</tt> in the draft).</li>
+<li>
+<tt class="docutils literal">elasticCoeff</tt>: the coefficient to adjust the length of the first several segments.
+(<tt class="docutils literal">elasticCoeff=0.5</tt> in the draft).</li>
+</ul>
+</li>
+<li>Output inside <em>LUT.h5</em>:<ul>
+<li>
+<tt class="docutils literal">umax</tt>: an array of maximum lengths of all segments</li>
+<li>
+<tt class="docutils literal">utotal</tt>: an array of total lengths of all previous segments (not including current one)</li>
+<li>
+<tt class="docutils literal">coeff</tt>: an array of bezier coefficients</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="new-version">
+<h4><a class="toc-backref" href="#id6">1.2.2   New Version</a></h4>
+<div class="section" id="id1">
+<h5><a class="toc-backref" href="#id7">1.2.2.1   基本框架</a></h5>
+<p>对曲线进行迭代分割，方法的基本框架参考 <a class="reference external" href="http://www.antigrain.com/research/adaptive_bezier/index.html#toc0003">Adaptive Subdivision of Bezier Curves</a>, 即：</p>
+<pre class="code julia"><a name="rest_code_f501658fef2a488d83c9cc61fe8993eb-1"></a><span class="k">function</span> <span class="n">recursive_divide</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+<a name="rest_code_f501658fef2a488d83c9cc61fe8993eb-2"></a>  <span class="n">preprocess</span><span class="p">()</span>
+<a name="rest_code_f501658fef2a488d83c9cc61fe8993eb-3"></a>  <span class="k">if</span> <span class="n">computeError</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">epsilon</span>
+<a name="rest_code_f501658fef2a488d83c9cc61fe8993eb-4"></a>    <span class="n">storeResult</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span> <span class="c"># postprocess()</span>
+<a name="rest_code_f501658fef2a488d83c9cc61fe8993eb-5"></a>  <span class="k">else</span>
+<a name="rest_code_f501658fef2a488d83c9cc61fe8993eb-6"></a>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">splitCurve</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+<a name="rest_code_f501658fef2a488d83c9cc61fe8993eb-7"></a>    <span class="n">recursive_divide</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
+<a name="rest_code_f501658fef2a488d83c9cc61fe8993eb-8"></a>    <span class="n">recursive_divide</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
+<a name="rest_code_f501658fef2a488d83c9cc61fe8993eb-9"></a>  <span class="k">end</span>
+<a name="rest_code_f501658fef2a488d83c9cc61fe8993eb-10"></a><span class="k">end</span>
+</pre>
+</div>
+<div class="section" id="computeerror">
+<h5><a class="toc-backref" href="#id8">1.2.2.2   <tt class="docutils literal">computeError()</tt></a></h5>
+<p>该函数包括两个功能：</p>
+<ol class="arabic">
+<li>
+<p class="first">Approximation</p>
+<p>这一段 segment 是 <em>elementary</em> 类型曲线进行旋转和位移后的结果，我们记为 <em>post-elementary</em> 曲线. 原有的 <em>elementary</em> 型曲线
+满足 <span class="math">\(\sigma=1\)</span>. 起点处 <span class="math">\(p_0=(0,0), \theta_0=0\)</span>.</p>
+<p><strong>cloapp.jl</strong> 中的 <tt class="docutils literal">bezierElement(u, k0, sigma)</tt> 函数用于估计 <em>elementary</em> 型曲线。另外 <tt class="docutils literal">clothoidElement(s, k0, sigma)</tt>
+可以计算出 <em>elementary</em> 型的另一端的精确端点坐标。</p>
+</li>
+<li>
+<p class="first">Compute error</p>
+<p>计算任意 segment 的逼近误差。误差标准可以是之前提到的位置，角度或是曲率误差。这里我们以 position error 为例。
+参考 <strong>cloerr.jl</strong> 中的 <tt class="docutils literal">errCurT()</tt> 函数，我们来计算两段 <em>elementary</em> 型曲线的估算误差。</p>
+</li>
+</ol>
+</div>
+<div class="section" id="lookuptablewithprecision-eps-arclength">
+<h5><a class="toc-backref" href="#id9">1.2.2.3   <tt class="docutils literal">lookupTableWithPrecision(eps, arclength)</tt></a></h5>
+<p>This function calls function <strong>recursive_divide</strong> to generate and store a lookup table.
+Apart from eps, another error threshold in <strong>uniArcLengthOne</strong> also affects the running time.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal">eps</tt>: the given error limit (<tt class="docutils literal">0.000672</tt> is the error upper bound of the example with 30 segments in TRO2014)</li>
+<li>
+<tt class="docutils literal">arclength</tt>: the total length of the curve stored in the lookup table</li>
+</ul>
+<ol class="arabic">
+<li>
+<p class="first">Position error w.r.t. scaling <tt class="docutils literal">C</tt></p>
+<p>TRO 最终例子中，使用的 LUT 中等价误差是 <span class="math">\(2.0 \times 10^{-9}\)</span>, 而查找表长度 <span class="math">\(1.78125\)</span> (因限制角度在 <span class="math">\(\pi/2\)</span> 之内，故长度接近 <span class="math">\(\sqrt{\pi}\)</span>). 在计算中，使用的误差计算函数
+<tt class="docutils literal">uniArcLengthOne()</tt> 中的误差标准采用 <tt class="docutils literal"><span class="pre">1.0e-12</span></tt> (注，Julia 中的 Float64 型数据最小精度是 <tt class="docutils literal"><span class="pre">eps(Float64)=2.220446049250313e-16</span></tt>, 如果要使用更高精度
+可以用 BigFloat 类型或第三方 package).</p>
+<p>设 LUT 中曲线长度 <span class="math">\(s_{\mathcal{L}}\)</span>, 对应的 sharpness 为 1, 而我们实际中使用的长度为 <span class="math">\(s\)</span>, 则有</p>
+<div class="math">
+\begin{equation*}
+s = C \cdot s_{\mathcal{L}}, \; \text{where } C=\frac{1}{\sigma}
+\end{equation*}
+</div>
+<p>因此我们可以定义下面的函数来计算某一曲线关于 <tt class="docutils literal">C</tt> 的误差: <span class="math">\(\bar{\epsilon}=2 \times 10^{-9}\)</span></p>
+<pre class="code julia"><a name="rest_code_e464eaaf61814e57b8cb49b00296cbd5-1"></a><span class="n">lookupTableWithPrecision</span><span class="p">(</span><span class="mf">2.0e-9</span><span class="p">)</span>
+<a name="rest_code_e464eaaf61814e57b8cb49b00296cbd5-2"></a><span class="n">errC</span><span class="p">(</span><span class="n">C</span><span class="o">::</span><span class="kt">Float64</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">=</span> <span class="n">errCurT</span><span class="p">(</span><span class="mf">1.78125</span><span class="o">*</span><span class="n">C</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">C</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<a name="rest_code_e464eaaf61814e57b8cb49b00296cbd5-3"></a><span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">errC</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">10.0</span><span class="o">.^</span><span class="n">collect</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">7</span><span class="p">))</span>
+</pre>
+<p>上面会得到当 <tt class="docutils literal">C = <span class="pre">[1.0e-5,</span> 0.001, 0.1, 10.0, 1000.0, 100000.0, 1000000.0, 1.0e7]</tt> 对应的误差值. 对应 LUT 参数 <tt class="docutils literal">N=8</tt>, <tt class="docutils literal">eps_L = <span class="pre">5.376571241757317e-10</span></tt>.</p>
+<p><span class="math">\(\bar{\epsilon}=2 \times 10^{-13}\)</span> 作为另一个例子.</p>
+<p>使用 BigFloat 计算的例子 <tt class="docutils literal"><span class="pre">lookupTableWithPrecision(parse(BigFloat,"9.8e-20"),</span> <span class="pre">parse(BigFloat,"6.0"))</span></tt></p>
+</li>
+</ol>
+<p><tt class="docutils literal">eps</tt>: 2.0e-9 arclength: 1.78125 epsOne: 1.0e-11 for tro example</p>
+</div>
+<div class="section" id="results">
+<h5><a class="toc-backref" href="#id10">1.2.2.4   Results</a></h5>
+<p><tt class="docutils literal"><span class="pre">lookupTableWithPrecision(eps::Float64,</span> <span class="pre">arclength::Float64)</span></tt></p>
+<p>Two parameters are important to the running time: the first is the error limit in function <tt class="docutils literal">uniArcLengthOne</tt> (we name it as <tt class="docutils literal">epsOne</tt>), and the second is the given error bound <tt class="docutils literal">eps</tt> in function <tt class="docutils literal">lookupTableWithPrecision</tt>.</p>
+<p>After test, we found that when <tt class="docutils literal">epsOne &lt;= <span class="pre">1.0e-9</span></tt>, no matter what value given to <tt class="docutils literal">eps</tt>, the program takes a very very long time to finish. Thus, we keep <tt class="docutils literal">epsOne = <span class="pre">1.0-8</span></tt> in the following test (for comparison, we also attach the result of <tt class="docutils literal">epsOne = <span class="pre">1.0e-6</span></tt>).</p>
+<table border="1" class="colwidths-auto docutils align-center">
+<caption>Test Result (<tt class="docutils literal">epsOne = <span class="pre">1.0-8</span></tt> and <tt class="docutils literal">arclength = 6.0</tt>)</caption>
+<thead valign="bottom"><tr>
+<th class="head"><tt class="docutils literal">eps</tt></th>
+<th class="head">number of segment (<tt class="docutils literal"><span class="pre">epsOne=1.0e-8</span></tt>)</th>
+<th class="head">number of segment (<tt class="docutils literal"><span class="pre">epsOne=1.0e-6</span></tt>)</th>
+<th class="head">segment length (<tt class="docutils literal"><span class="pre">epsOne=1.0e-8</span></tt>)</th>
+<th class="head">segment length (<tt class="docutils literal"><span class="pre">epsOne=1.0e-6</span></tt>)</th>
+<th class="head">poly coeffcients (<tt class="docutils literal"><span class="pre">epsOne=1.0e-8</span></tt>)</th>
+<th class="head">poly coeffcients (<tt class="docutils literal"><span class="pre">epsOne=1.0e-6</span></tt>)</th>
+</tr></thead>
+<tbody valign="top">
+<tr>
+<td><tt class="docutils literal">1.0e0</tt></td>
+<td>3</td>
+<td>3</td>
+<td>[1.5,1.5,3.0]</td>
+<td>[1.5,1.5,3.0]</td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  1.5  0.0770032  -0.0775292  -0.117913   -0.0606004
+0.0  0.0  0.0         0.5625      0.0898593  -0.138707</dd>
+<dt>[:, :, 2] =</dt>
+<dd>1.32096   0.646765  -1.30001  -2.92801   3.76281   -0.926037
+0.513652  1.3534     1.19335  -2.12888  -0.906097   0.960928</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.576489  -0.632387  13.9699    -21.1867    1.92147   6.10955
+0.986352  -2.93259    0.739971   37.015   -63.2991   28.2702</dd>
+</dl></td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  1.5  0.0770032  -0.0775292  -0.117913   -0.0606004
+0.0  0.0  0.0         0.5625      0.0898593  -0.138707</dd>
+<dt>[:, :, 2] =</dt>
+<dd>1.32096   0.646765  -1.30001  -2.92801   3.76281   -0.926037
+0.513652  1.3534     1.19335  -2.12888  -0.906097   0.960928</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.576489  -0.632387  13.9699    -21.1867    1.92147   6.10955
+0.986352  -2.93259    0.739971   37.015   -63.2991   28.2702</dd>
+</dl></td>
+</tr>
+<tr>
+<td><tt class="docutils literal"><span class="pre">1.0e-1</span></tt></td>
+<td>6</td>
+<td>6</td>
+<td>[1.5,1.5,0.75,0.75,0.75,0.75]</td>
+<td>[1.5,1.5,0.75,0.75,0.75,0.75]</td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  1.5  0.0770032  -0.0775292  -0.117913   -0.0606004
+0.0  0.0  0.0         0.5625      0.0898593  -0.138707</dd>
+<dt>[:, :, 2] =</dt>
+<dd>1.32096   0.646765  -1.30001  -2.92801   3.76281   -0.926037
+0.513652  1.3534     1.19335  -2.12888  -0.906097   0.960928</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.576489  -0.158097   0.813495  0.364787  -0.70909     0.164572
+0.986352  -0.733148  -0.230244  0.786082   0.0153716  -0.143187</dd>
+<dt>[:, :, 4] =</dt>
+<dd>1.05216   0.549755  -0.667902  -1.20425    1.28655   -0.264184
+0.681228  0.510166   0.819046  -0.762397  -0.586616   0.400421</dd>
+<dt>[:, :, 5] =</dt>
+<dd>0.752124  -0.573524   0.771878  1.80894  -2.35276   0.655059
+1.06185   -0.483291  -1.00463   1.18032   0.64291  -0.583411</dd>
+<dt>[:, :, 6] =</dt>
+<dd>1.06173   0.261337  -1.38764   -1.07108  3.24749  -1.3535
+0.813748  0.702996   0.504769  -2.79684  1.66119  -0.106004</dd>
+</dl></td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  1.5  0.0770032  -0.0775292  -0.117913   -0.0606004
+0.0  0.0  0.0         0.5625      0.0898593  -0.138707</dd>
+<dt>[:, :, 2] =</dt>
+<dd>1.32096   0.646765  -1.30001  -2.92801   3.76281   -0.926037
+0.513652  1.3534     1.19335  -2.12888  -0.906097   0.960928</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.576489  -0.158097   0.813495  0.364787  -0.70909     0.164572
+0.986352  -0.733148  -0.230244  0.786082   0.0153716  -0.143187</dd>
+<dt>[:, :, 4] =</dt>
+<dd>1.05216   0.549755  -0.667902  -1.20425    1.28655   -0.264184
+0.681228  0.510166   0.819046  -0.762397  -0.586616   0.400421</dd>
+<dt>[:, :, 5] =</dt>
+<dd>0.752124  -0.573524   0.771878  1.80894  -2.35276   0.655059
+1.06185   -0.483291  -1.00463   1.18032   0.64291  -0.583411</dd>
+<dt>[:, :, 6] =</dt>
+<dd>1.06173   0.261337  -1.38764   -1.07108  3.24749  -1.3535
+0.813748  0.702996   0.504769  -2.79684  1.66119  -0.106004</dd>
+</dl></td>
+</tr>
+<tr>
+<td><tt class="docutils literal"><span class="pre">1.0e-2</span></tt></td>
+<td>8</td>
+<td>8</td>
+<td>[1.5,1.5,0.75,0.75,0.375,0.375,0.375,0.375]</td>
+<td>[1.5,1.5,0.75,0.75,0.375,0.375,0.375,0.375]</td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  1.5  0.0770032  -0.0775292  -0.117913   -0.0606004
+0.0  0.0  0.0         0.5625      0.0898593  -0.138707</dd>
+<dt>[:, :, 2] =</dt>
+<dd>1.32096   0.646765  -1.30001  -2.92801   3.76281   -0.926037
+0.513652  1.3534     1.19335  -2.12888  -0.906097   0.960928</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.576489  -0.158097   0.813495  0.364787  -0.70909     0.164572
+0.986352  -0.733148  -0.230244  0.786082   0.0153716  -0.143187</dd>
+<dt>[:, :, 4] =</dt>
+<dd>1.05216   0.549755  -0.667902  -1.20425    1.28655   -0.264184
+0.681228  0.510166   0.819046  -0.762397  -0.586616   0.400421</dd>
+<dt>[:, :, 5] =</dt>
+<dd>0.752124  -0.286762   0.199686  …  -0.0744871  -0.00231118
+1.06185   -0.241645  -0.245497      0.0704792  -0.0252337</dd>
+<dt>[:, :, 6] =</dt>
+<dd>0.750798   0.290749  0.221506  -0.168205  -0.0671339  0.0340115
+0.733304  -0.236833  0.261669   0.163634  -0.114217   0.00619192</dd>
+<dt>[:, :, 7] =</dt>
+<dd>1.06173   0.130669  -0.34336   -0.117749   0.1662     -0.0256274
+0.813748  0.351498   0.135744  -0.248622  -0.0277152   0.0383395</dd>
+<dt>[:, :, 8] =</dt>
+<dd>0.871858  -0.372636    0.0355798  …  -0.0707379  -0.0253634
+1.06299   -0.0420424  -0.394003       0.199142   -0.0547273</dd>
+</dl></td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  1.5  0.0770032  -0.0775292  -0.117913   -0.0606004
+0.0  0.0  0.0         0.5625      0.0898593  -0.138707</dd>
+<dt>[:, :, 2] =</dt>
+<dd>1.32096   0.646765  -1.30001  -2.92801   3.76281   -0.926037
+0.513652  1.3534     1.19335  -2.12888  -0.906097   0.960928</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.576489  -0.158097   0.813495  0.364787  -0.70909     0.164572
+0.986352  -0.733148  -0.230244  0.786082   0.0153716  -0.143187</dd>
+<dt>[:, :, 4] =</dt>
+<dd>1.05216   0.549755  -0.667902  -1.20425    1.28655   -0.264184
+0.681228  0.510166   0.819046  -0.762397  -0.586616   0.400421</dd>
+<dt>[:, :, 5] =</dt>
+<dd>0.752124  -0.286762   0.199686  0.162548  -0.0744871  -0.00231118
+1.06185   -0.241645  -0.245497  0.113353   0.0704792  -0.0252337</dd>
+<dt>[:, :, 6] =</dt>
+<dd>0.750798   0.290749  0.221506  -0.168205  -0.0671339  0.0340115
+0.733304  -0.236833  0.261669   0.163634  -0.114217   0.00619192</dd>
+<dt>[:, :, 7] =</dt>
+<dd>1.06173   0.130669  -0.34336   -0.117749   0.1662     -0.0256274
+0.813748  0.351498   0.135744  -0.248622  -0.0277152   0.0383395</dd>
+<dt>[:, :, 8] =</dt>
+<dd>0.871858  -0.372636    0.0355798  0.319621    -0.0707379  -0.0253634
+1.06299   -0.0420424  -0.394003   0.00849903   0.199142   -0.0547273</dd>
+</dl></td>
+</tr>
+<tr>
+<td><tt class="docutils literal"><span class="pre">1.0e-3</span></tt></td>
+<td>10</td>
+<td>10</td>
+<td>[1.5,0.75,0.75,0.75,0.375,0.375,0.375,0.375,0.375,0.375]</td>
+<td>[1.5,0.75,0.75,0.75,0.375,0.375,0.375,0.375,0.375,0.375]</td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  1.5  0.0770032  -0.0775292  -0.117913   -0.0606004
+0.0  0.0  0.0         0.5625      0.0898593  -0.138707</dd>
+<dt>[:, :, 2] =</dt>
+<dd>1.32096   0.323382  -0.370742  -0.177832   0.0741548  0.008078
+0.513652  0.676701   0.202623  -0.149136  -0.0733288  0.0177272</dd>
+<dt>[:, :, 3] =</dt>
+<dd>1.178    -0.614589  -0.39256    0.302494  0.181581  -0.0784392
+1.18824   0.429861  -0.497671  -0.372428  0.242135  -0.00378487</dd>
+<dt>[:, :, 4] =</dt>
+<dd>0.576489  -0.158097   0.813495  0.364787  -0.70909     0.164572
+0.986352  -0.733148  -0.230244  0.786082   0.0153716  -0.143187</dd>
+<dt>[:, :, 5] =</dt>
+<dd>1.05216   0.274878  -0.176502  -0.108827   0.0406241  0.00280498
+0.681228  0.255083   0.195921  -0.081533  -0.0414306  0.0122113</dd>
+<dt>[:, :, 6] =</dt>
+<dd>1.08513  -0.228087  -0.23304    0.0874325  0.0583195  -0.0176341
+1.02148   0.29766   -0.172732  -0.140339   0.0517237   0.00405623</dd>
+<dt>[:, :, 7] =</dt>
+<dd>0.752124  -0.286762   0.199686  0.162548  -0.0744871  -0.00231118
+1.06185   -0.241645  -0.245497  0.113353   0.0704792  -0.0252337</dd>
+<dt>[:, :, 8] =</dt>
+<dd>0.750798   0.290749  0.221506  -0.168205  -0.0671339  0.0340115
+0.733304  -0.236833  0.261669   0.163634  -0.114217   0.00619192</dd>
+<dt>[:, :, 9] =</dt>
+<dd>1.06173   0.130669  -0.34336   -0.117749   0.1662     -0.0256274
+0.813748  0.351498   0.135744  -0.248622  -0.0277152   0.0383395</dd>
+<dt>[:, :, 10] =</dt>
+<dd>0.871858  -0.372636    0.0355798  0.319621    -0.0707379  -0.0253634
+1.06299   -0.0420424  -0.394003   0.00849903   0.199142   -0.0547273</dd>
+</dl></td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  1.5  0.0770032  -0.0775292  -0.117913   -0.0606004
+0.0  0.0  0.0         0.5625      0.0898593  -0.138707</dd>
+<dt>[:, :, 2] =</dt>
+<dd>1.32096   0.323382  -0.370742  -0.177832   0.0741548  0.008078
+0.513652  0.676701   0.202623  -0.149136  -0.0733288  0.0177272</dd>
+<dt>[:, :, 3] =</dt>
+<dd>1.178    -0.614589  -0.39256    0.302494  0.181581  -0.0784392
+1.18824   0.429861  -0.497671  -0.372428  0.242135  -0.00378487</dd>
+<dt>[:, :, 4] =</dt>
+<dd>0.576489  -0.158097   0.813495  0.364787  -0.70909     0.164572
+0.986352  -0.733148  -0.230244  0.786082   0.0153716  -0.143187</dd>
+<dt>[:, :, 5] =</dt>
+<dd>1.05216   0.274878  -0.176502  -0.108827   0.0406241  0.00280498
+0.681228  0.255083   0.195921  -0.081533  -0.0414306  0.0122113</dd>
+<dt>[:, :, 6] =</dt>
+<dd>1.08513  -0.228087  -0.23304    0.0874325  0.0583195  -0.0176341
+1.02148   0.29766   -0.172732  -0.140339   0.0517237   0.00405623</dd>
+<dt>[:, :, 7] =</dt>
+<dd>0.752124  -0.286762   0.199686  0.162548  -0.0744871  -0.00231118
+1.06185   -0.241645  -0.245497  0.113353   0.0704792  -0.0252337</dd>
+<dt>[:, :, 8] =</dt>
+<dd>0.750798   0.290749  0.221506  -0.168205  -0.0671339  0.0340115
+0.733304  -0.236833  0.261669   0.163634  -0.114217   0.00619192</dd>
+<dt>[:, :, 9] =</dt>
+<dd>1.06173   0.130669  -0.34336   -0.117749   0.1662     -0.0256274
+0.813748  0.351498   0.135744  -0.248622  -0.0277152   0.0383395</dd>
+<dt>[:, :, 10] =</dt>
+<dd>0.871858  -0.372636    0.0355798  0.319621    -0.0707379  -0.0253634
+1.06299   -0.0420424  -0.394003   0.00849903   0.199142   -0.0547273</dd>
+</dl></td>
+</tr>
+<tr>
+<td><tt class="docutils literal"><span class="pre">1.0e-4</span></tt></td>
+<td>13</td>
+<td>13</td>
+<td>[0.75,0.75,0.75,0.75,0.375,0.375,0.375,0.375,0.375,0.375,0.375,0.1875,0.1875]</td>
+<td>[0.75,0.75,0.75,0.75,0.375,0.375,0.375,0.375,0.375,0.375,0.375,0.1875,0.1875]</td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.75  0.0028121  -0.00416761  -0.000187648  -0.00436777
+0.0  0.0   0.0         0.0703125    0.000788561  -0.00118484</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.744089   0.720532  -0.0444409  -0.0892479  -0.00933419  -0.000637463
+0.0699162  0.208168   0.206725    0.0560007  -0.022868    -0.00428944</dd>
+<dt>[:, :, 3] =</dt>
+<dd>1.32096   0.323382  -0.370742  -0.177832   0.0741548  0.008078
+0.513652  0.676701   0.202623  -0.149136  -0.0733288  0.0177272</dd>
+<dt>[:, :, 11] =</dt>
+<dd>1.06173   0.130669  -0.34336   -0.117749   0.1662     -0.0256274
+0.813748  0.351498   0.135744  -0.248622  -0.0277152   0.0383395</dd>
+<dt>[:, :, 12] =</dt>
+<dd>0.871858  -0.186318    0.010674  0.0359682   -0.00157678  -0.00145001
+1.06299   -0.0210212  -0.0983    0.00251306   0.0102897   -0.000953636</dd>
+<dt>[:, :, 13] =</dt>
+<dd>0.729155  -0.0706226   0.0944807  0.0159695  -0.0108683    0.000207047
+0.95552   -0.173691   -0.0388958  0.0350723   0.00382014  -0.00196495</dd>
+</dl></td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.75  0.0028121  -0.00416761  -0.000187648  -0.00436777
+0.0  0.0   0.0         0.0703125    0.000788561  -0.00118484</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.744089   0.720532  -0.0444409  -0.0892479  -0.00933419  -0.000637463
+0.0699162  0.208168   0.206725    0.0560007  -0.022868    -0.00428944</dd>
+<dt>[:, :, 3] =</dt>
+<dd>1.32096   0.323382  -0.370742  -0.177832   0.0741548  0.008078
+0.513652  0.676701   0.202623  -0.149136  -0.0733288  0.0177272</dd>
+<dt>[:, :, 11] =</dt>
+<dd>1.06173   0.130669  -0.34336   -0.117749   0.1662     -0.0256274
+0.813748  0.351498   0.135744  -0.248622  -0.0277152   0.0383395</dd>
+<dt>[:, :, 12] =</dt>
+<dd>0.871858  -0.186318    0.010674  0.0359682   -0.00157678  -0.00145001
+1.06299   -0.0210212  -0.0983    0.00251306   0.0102897   -0.000953636</dd>
+<dt>[:, :, 13] =</dt>
+<dd>0.729155  -0.0706226   0.0944807  0.0159695  -0.0108683    0.000207047
+0.95552   -0.173691   -0.0388958  0.0350723   0.00382014  -0.00196495</dd>
+</dl></td>
+</tr>
+<tr>
+<td><tt class="docutils literal"><span class="pre">1.0e-5</span></tt></td>
+<td>18</td>
+<td>18</td>
+<td>[0.75,0.75,0.75,0.375,0.375,0.375,0.375,0.375,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875]</td>
+<td>[0.75,0.75,0.75,0.375,0.375,0.375,0.375,0.375,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875]</td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.75  0.0028121  -0.00416761  -0.000187648  -0.00436777
+0.0  0.0   0.0         0.0703125    0.000788561  -0.00118484</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.744089   0.720532  -0.0444409  -0.0892479  -0.00933419  -0.000637463
+0.0699162  0.208168   0.206725    0.0560007  -0.022868    -0.00428944</dd>
+<dt>[:, :, 3] =</dt>
+<dd>1.32096   0.323382  -0.370742  -0.177832   0.0741548  0.008078
+0.513652  0.676701   0.202623  -0.149136  -0.0733288  0.0177272</dd>
+<dt>[:, :, 16] =</dt>
+<dd>1.03627   -0.11288   -0.0765512   0.0190552  0.00730977  -0.00134804
+0.991691   0.149714  -0.0572346  -0.0277506  0.00587437   0.000697622</dd>
+<dt>[:, :, 17] =</dt>
+<dd>0.871858  -0.186318    0.010674  0.0359682   -0.00157678  -0.00145001
+1.06299   -0.0210212  -0.0983    0.00251306   0.0102897   -0.000953636</dd>
+<dt>[:, :, 18] =</dt>
+<dd>0.729155  -0.0706226   0.0944807  0.0159695  -0.0108683    0.000207047
+0.95552   -0.173691   -0.0388958  0.0350723   0.00382014  -0.00196495</dd>
+</dl></td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.75  0.0028121  -0.00416761  -0.000187648  -0.00436777
+0.0  0.0   0.0         0.0703125    0.000788561  -0.00118484</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.744089   0.720532  -0.0444409  -0.0892479  -0.00933419  -0.000637463
+0.0699162  0.208168   0.206725    0.0560007  -0.022868    -0.00428944</dd>
+<dt>[:, :, 3] =</dt>
+<dd>1.32096   0.323382  -0.370742  -0.177832   0.0741548  0.008078
+0.513652  0.676701   0.202623  -0.149136  -0.0733288  0.0177272</dd>
+<dt>[:, :, 16] =</dt>
+<dd>1.03627   -0.11288   -0.0765512   0.0190552  0.00730977  -0.00134804
+0.991691   0.149714  -0.0572346  -0.0277506  0.00587437   0.000697622</dd>
+<dt>[:, :, 17] =</dt>
+<dd>0.871858  -0.186318    0.010674  0.0359682   -0.00157678  -0.00145001
+1.06299   -0.0210212  -0.0983    0.00251306   0.0102897   -0.000953636</dd>
+<dt>[:, :, 18] =</dt>
+<dd>0.729155  -0.0706226   0.0944807  0.0159695  -0.0108683    0.000207047
+0.95552   -0.173691   -0.0388958  0.0350723   0.00382014  -0.00196495</dd>
+</dl></td>
+</tr>
+<tr>
+<td><tt class="docutils literal"><span class="pre">1.0e-6</span></tt></td>
+<td>23</td>
+<td>23</td>
+<td>[0.75,0.375,0.375,0.375,0.375,0.375,0.375,0.1875,0.1875,0.1875  …  0.187 5,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875]</td>
+<td>[0.75,0.375,0.375,0.375,0.375,0.375,0.375,0.1875,0.1875,0.1875  …  0.187 5,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875]</td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.75  0.0028121  -0.00416761  -0.000187648  -0.00436777
+0.0  0.0   0.0         0.0703125    0.000788561  -0.00118484</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.744089   0.360266  -0.00646648  …   0.0112778   -0.00244377
+0.0699162  0.104084   0.0530229      -0.00203607   0.00147373</dd>
+<dt>[:, :, 3] =</dt>
+<dd>1.08078   0.302388  -0.0460091  …  -0.000337054   0.000121573
+0.230603  0.221781   0.0643517     -0.00264361   -0.000120569</dd>
+<dt>[:, :, 21] =</dt>
+<dd>1.03627   -0.11288   -0.0765512   0.0190552  0.00730977  -0.00134804
+0.991691   0.149714  -0.0572346  -0.0277506  0.00587437   0.000697622</dd>
+<dt>[:, :, 22] =</dt>
+<dd>0.871858  -0.186318    0.010674  0.0359682   -0.00157678  -0.00145001
+1.06299   -0.0210212  -0.0983    0.00251306   0.0102897   -0.000953636</dd>
+<dt>[:, :, 23] =</dt>
+<dd>0.729155  -0.0706226   0.0944807  0.0159695  -0.0108683    0.000207047
+0.95552   -0.173691   -0.0388958  0.0350723   0.00382014  -0.00196495</dd>
+</dl></td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.75  0.0028121  -0.00416761  -0.000187648  -0.00436777
+0.0  0.0   0.0         0.0703125    0.000788561  -0.00118484</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.744089   0.360266  -0.00646648  …   0.0112778   -0.00244377
+0.0699162  0.104084   0.0530229      -0.00203607   0.00147373</dd>
+<dt>[:, :, 3] =</dt>
+<dd>1.08078   0.302388  -0.0460091  …  -0.000337054   0.000121573
+0.230603  0.221781   0.0643517     -0.00264361   -0.000120569</dd>
+<dt>[:, :, 21] =</dt>
+<dd>1.03627   -0.11288   -0.0765512   0.0190552  0.00730977  -0.00134804
+0.991691   0.149714  -0.0572346  -0.0277506  0.00587437   0.000697622</dd>
+<dt>[:, :, 22] =</dt>
+<dd>0.871858  -0.186318    0.010674  0.0359682   -0.00157678  -0.00145001
+1.06299   -0.0210212  -0.0983    0.00251306   0.0102897   -0.000953636</dd>
+<dt>[:, :, 23] =</dt>
+<dd>0.729155  -0.0706226   0.0944807  0.0159695  -0.0108683    0.000207047
+0.95552   -0.173691   -0.0388958  0.0350723   0.00382014  -0.00196495</dd>
+</dl></td>
+</tr>
+<tr>
+<td><tt class="docutils literal"><span class="pre">1.0e-7</span></tt></td>
+<td>32</td>
+<td>43 (<tt class="docutils literal">eps &lt; epsOne</tt> meaningless)</td>
+<td>[0.75,0.1875,0.1875,0.375,0.375,0.375,0.1875,0.1875,0.1875,0.1875  …  0.09375,0.09375,0.09375,0.09375,0.09375,0.09375,0.09375,0.09375,0.09375,0.09375]</td>
+<td>[0.75,0.1875,0.1875,0.375,0.375,0.375,0.1875,0.1875,0.1875,0.1875  …  0. 046875,0.046875,0.046875,0.046875,0.046875,0.046875,0.046875,0.046875,0.046875,0.09375]</td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.75  0.0028121  -0.00416761  -0.000187648  -0.00436777
+0.0  0.0   0.0         0.0703125    0.000788561  -0.00118484</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.744089   0.180133   -0.003641   …  -9.10337e-5  -4.61433e-7
+0.0699162  0.0520419   0.0126709     -5.37403e-5  -5.57215e-6</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.919556  0.169685   -0.00695893  …  -5.11246e-5  -3.11038e-6
+0.135446  0.0797709   0.0149382      -9.24315e-5  -3.29759e-6</dd>
+<dt>[:, :, 30] =</dt>
+<dd>0.785731  -0.074967   0.0150737  0.00372392  -0.00036986   -3.68008e-5
+1.02884   -0.056294  -0.0201088  0.00261051   0.000510788  -4.17723e-5</dd>
+<dt>[:, :, 31] =</dt>
+<dd>0.729155  -0.0353113   0.0236539   …  -0.000609797  -1.03513e-5
+0.95552   -0.0868457  -0.00964101      0.000258312  -5.84787e-5</dd>
+<dt>[:, :, 32] =</dt>
+<dd>0.718785   0.0152262  0.0256142   …  -0.000686983   2.3505e-5
+0.863527  -0.0925053  0.00419344     -0.000104814  -5.87615e-5</dd>
+</dl></td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.75  0.0028121  -0.00416761  -0.000187648  -0.00436777
+0.0  0.0   0.0         0.0703125    0.000788561  -0.00118484</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.744089   0.180133   -0.003641   …  -9.10337e-5  -4.61433e-7
+0.0699162  0.0520419   0.0126709     -5.37403e-5  -5.57215e-6</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.919556  0.169685   -0.00695893  …  -5.11246e-5  -3.11038e-6
+0.135446  0.0797709   0.0149382      -9.24315e-5  -3.29759e-6</dd>
+<dt>[:, :, 41] =</dt>
+<dd>0.729155  -0.0176556   0.00591508  …  -3.66658e-5  -5.6242e-7
+0.95552   -0.0434228  -0.00240631      1.66518e-5  -1.73406e-6</dd>
+<dt>[:, :, 42] =</dt>
+<dd>0.717613  -0.005268   0.00639639   …  -4.07762e-5  -7.14195e-8
+0.910239  -0.046578  -0.000724619      6.22757e-6  -1.88097e-6</dd>
+<dt>[:, :, 43] =</dt>
+<dd>0.718785   0.0152262  0.0256142   …  -0.000686983   2.3505e-5
+0.863527  -0.0925053  0.00419344     -0.000104814  -5.87615e-5</dd>
+</dl></td>
+</tr>
+<tr>
+<td><tt class="docutils literal"><span class="pre">1.0e-8</span></tt></td>
+<td>42</td>
+<td>117 (<tt class="docutils literal">eps &lt; epsOne</tt> meaningless)</td>
+<td>[0.375,0.375,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.375,0.1875  … 0.09375,0.09375,0.09375,0.09375,0.09375,0.09375,0.09375,0.09375,0.09375,0.09375]</td>
+<td>[0.375,0.375,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.375,0.1875  … 0.0234375,0.0234375,0.0234375,0.0234375,0.0234375,0.0234375,0.0234375,0.0234375,0.0234375,0.09375]</td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.375  8.82589e-5  -0.000132292  -3.62644e-7  -0.000140956
+0.0  0.0    0.0          0.00878906    6.20447e-6  -9.30768e-6</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.374815    0.374073   -0.0015535  …  -0.000717816  -0.000123079
+0.00878596  0.0263455   0.0263231     -0.000151037  -7.09776e-5</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.744089   0.180133   -0.003641   …  -9.10337e-5  -4.61433e-7
+0.0699162  0.0520419   0.0126709     -5.37403e-5  -5.57215e-6</dd>
+<dt>[:, :, 40] =</dt>
+<dd>0.785731  -0.074967   0.0150737  0.00372392  -0.00036986   -3.68008e-5
+1.02884   -0.056294  -0.0201088  0.00261051   0.000510788  -4.17723e-5</dd>
+<dt>[:, :, 41] =</dt>
+<dd>0.729155  -0.0353113   0.0236539   …  -0.000609797  -1.03513e-5
+0.95552   -0.0868457  -0.00964101      0.000258312  -5.84787e-5</dd>
+<dt>[:, :, 42] =</dt>
+<dd>0.718785   0.0152262  0.0256142   …  -0.000686983   2.3505e-5
+0.863527  -0.0925053  0.00419344     -0.000104814  -5.87615e-5</dd>
+</dl></td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.375  8.82589e-5  -0.000132292  -3.62644e-7  -0.000140956
+0.0  0.0    0.0          0.00878906    6.20447e-6  -9.30768e-6</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.374815    0.374073   -0.0015535  …  -0.000717816  -0.000123079
+0.00878596  0.0263455   0.0263231     -0.000151037  -7.09776e-5</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.744089   0.180133   -0.003641   …  -9.10337e-5  -4.61433e-7
+0.0699162  0.0520419   0.0126709     -5.37403e-5  -5.57215e-6</dd>
+<dt>[:, :, 115] =</dt>
+<dd>0.717613  -0.002634   0.00159912   …  -2.51858e-6  -6.24586e-9
+0.910239  -0.023289  -0.000180929      4.15971e-7  -5.79924e-8</dd>
+<dt>[:, :, 116] =</dt>
+<dd>0.716586   0.000585451  0.00161526  …  -2.58249e-6   1.8418e-9
+0.886843  -0.0234302    4.02927e-5      6.59744e-8  -5.92368e-8</dd>
+<dt>[:, :, 117] =</dt>
+<dd>0.718785   0.0152262  0.0256142   …  -0.000686983   2.3505e-5
+0.863527  -0.0925053  0.00419344     -0.000104814  -5.87615e-5</dd>
+</dl></td>
+</tr>
+<tr>
+<td><tt class="docutils literal"><span class="pre">1.0e-9</span></tt></td>
+<td>54 (<tt class="docutils literal">eps &lt; epsOne</tt>, meaningless)</td>
+<td>301 (<tt class="docutils literal">eps &lt; epsOne</tt>, meaningless)</td>
+<td>[0.375,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875  …  0.046875,0.046875,0.046875,0.046875,0.046875,0.046875,0.046875,0.046875,0.046875,0.046875]</td>
+<td>[0.375,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875,0.1875  …  0.0117188,0.0117188,0.0117188,0.0117188,0.0117188,0.0117188,0.0117188,0.0117188,0.0117188,0.0117188]</td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.375  8.82589e-5  -0.000132292  -3.62644e-7  -0.000140956
+0.0  0.0    0.0          0.00878906    6.20447e-6  -9.30768e-6</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.374815    0.187037   -0.000446804  …  -4.403e-5    -4.15147e-6
+0.00878596  0.0131727   0.00657666      -7.74036e-6  -1.52415e-6</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.561094   0.185158   -0.00153598  …  -6.51233e-5  -3.35847e-6
+0.0296101  0.0295395   0.00976769     -2.38257e-5  -2.98146e-6</dd>
+<dt>[:, :, 52] =</dt>
+<dd>0.717613  -0.005268   0.00639639   …  -4.07762e-5  -7.14195e-8
+0.910239  -0.046578  -0.000724619      6.22757e-6  -1.88097e-6</dd>
+<dt>[:, :, 53] =</dt>
+<dd>0.718785   0.00761308  0.00640284  …  -4.19124e-5   4.61694e-7
+0.863527  -0.0462526   0.00105269     -5.28212e-6  -1.88745e-6</dd>
+<dt>[:, :, 54] =</dt>
+<dd>0.732679   0.0200121  0.00591482  …  -3.97649e-5   9.96284e-7
+0.818917  -0.0423885  0.00279112     -1.70219e-5  -1.74033e-6</dd>
+</dl></td>
+<td><dl class="first last docutils">
+<dt>[:, :, 1] =</dt>
+<dd>0.0  0.375  8.82589e-5  -0.000132292  -3.62644e-7  -0.000140956
+0.0  0.0    0.0          0.00878906    6.20447e-6  -9.30768e-6</dd>
+<dt>[:, :, 2] =</dt>
+<dd>0.374815    0.187037   -0.000446804  …  -4.403e-5    -4.15147e-6
+0.00878596  0.0131727   0.00657666      -7.74036e-6  -1.52415e-6</dd>
+<dt>[:, :, 3] =</dt>
+<dd>0.561094   0.185158   -0.00153598  …  -6.51233e-5  -3.35847e-6
+0.0296101  0.0295395   0.00976769     -2.38257e-5  -2.98146e-6</dd>
+<dt>[:, :, 299] =</dt>
+<dd>0.738047   0.00573024  0.000357271  …  -1.50442e-7   9.14043e-10
+0.808503  -0.0102222   0.00020027      -7.39377e-8  -1.72133e-9</dd>
+<dt>[:, :, 300] =</dt>
+<dd>0.74413    0.00643088  0.000343068  …  -1.45803e-7   1.03221e-9
+0.798489  -0.00979658  0.000225199     -8.46675e-8  -1.67219e-9</dd>
+<dt>[:, :, 301] =</dt>
+<dd>0.750899   0.00710132  0.00032709   …  -1.40303e-7   1.15705e-9
+0.788926  -0.00932203  0.000249165     -9.52757e-8  -1.60735e-9</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/algorithm/" rel="tag">algorithm</a></li>
+            <li><a class="tag p-category" href="../../categories/clothoid/" rel="tag">clothoid</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../xiao-mi-shou-ji-lian-jie-dian-nao/" rel="prev" title="小米手机连接电脑">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../reStructuredText-notes/" rel="next" title="reStructuredText Notes">Next post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="yongchen",
+            disqus_url="http://yongchen.org/posts/approximation-error-of-position/",
+        disqus_title="Approximation Error of Position",
+        disqus_identifier="cache/posts/approximation-error-of-position.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script></article><script>var disqus_shortname="yongchen";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+        <!--End of body content-->
+
+        <footer id="footer">
+            Contents © 2017         <a href="mailto:ob@outlook.sg">YONG</a>
+            
+        </footer>
+</div>
+</div>
+
+
+            <script src="../../assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>

@@ -1,0 +1,1295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home (Posts by docutils contributors)</title><link>http://yongchen.org/</link><description></description><atom:link href="http://yongchen.org/authors/docutils-contributors.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2017 &lt;a href="mailto:ob@outlook.sg"&gt;YONG&lt;/a&gt; </copyright><lastBuildDate>Fri, 11 Aug 2017 06:47:26 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>A reStructuredText Reference</title><link>http://yongchen.org/posts/quickref/</link><dc:creator>docutils contributors</dc:creator><description>&lt;div&gt;&lt;div class="alert alert-info pull-right" style="margin-left: 2em;"&gt;
+    &lt;h3&gt;&lt;a name="contents"&gt;Contents&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;ul&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#inline-markup"&gt;Inline Markup&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#escaping"&gt;Escaping with Backslashes&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#section-structure"&gt;Section Structure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#paragraphs"&gt;Paragraphs&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#bullet-lists"&gt;Bullet Lists&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#enumerated-lists"&gt;Enumerated Lists&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#definition-lists"&gt;Definition Lists&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#field-lists"&gt;Field Lists&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#option-lists"&gt;Option Lists&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#literal-blocks"&gt;Literal Blocks&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#line-blocks"&gt;Line Blocks&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#block-quotes"&gt;Block Quotes&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#doctest-blocks"&gt;Doctest Blocks&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#tables"&gt;Tables&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#transitions"&gt;Transitions&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#explicit-markup"&gt;Explicit Markup&lt;/a&gt;
+    &lt;ul&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#footnotes"&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#citations"&gt;Citations&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#hyperlink-targets"&gt;Hyperlink Targets&lt;/a&gt;
+    &lt;ul&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#external-hyperlink-targets"&gt;External Hyperlink Targets&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#internal-hyperlink-targets"&gt;Internal Hyperlink Targets&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#indirect-hyperlink-targets"&gt;Indirect Hyperlink Targets&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#implicit-hyperlink-targets"&gt;Implicit Hyperlink Targets&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#directives"&gt;Directives&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#substitution-references-and-definitions"&gt;Substitution References and Definitions&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#comments"&gt;Comments&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://yongchen.org/posts/quickref/#getting-help"&gt;Getting Help&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/div&gt;
+
+
+    &lt;h2&gt;Quick &lt;i&gt;re&lt;/i&gt;&lt;font size="+4"&gt;&lt;tt&gt;Structured&lt;/tt&gt;&lt;/font&gt;&lt;i&gt;Text&lt;/i&gt;&lt;/h2&gt;
+
+    &lt;!-- Caveat: if you're reading the HTML for the examples, --&gt;
+    &lt;!-- beware that it was hand-generated, not by Docutils/ReST.  --&gt;
+
+    &lt;blockquote&gt;
+    &lt;p&gt;Copyright: This document has been placed in the public domain.
+    &lt;/p&gt;&lt;/blockquote&gt;
+
+
+    &lt;p&gt;The full details of the markup may be found on the
+    &lt;a href="http://docutils.sourceforge.net/rst.html"&gt;reStructuredText&lt;/a&gt;
+    page. This document is just intended as a reminder.
+
+    &lt;/p&gt;&lt;p&gt;Links that look like "(&lt;a href="http://yongchen.org/posts/quickref/#details"&gt;details&lt;/a&gt;)" point
+    into the HTML version of the full &lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html"&gt;reStructuredText
+    specification&lt;/a&gt; document.  These are relative links; if they
+    don't work, please use the &lt;a href="http://docutils.sourceforge.net/docs/user/rst/quickref.html"&gt;master "Quick reStructuredText"&lt;/a&gt; document.
+
+
+    &lt;/p&gt;&lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="inline-markup" class="backref"&gt;Inline Markup&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#inline-markup"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;Inline markup allows words and phrases within text to have
+    character styles (like italics and boldface) and functionality
+    (like hyperlinks).
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th&gt;Plain text
+    &lt;/th&gt;&lt;th&gt;Typical result
+    &lt;/th&gt;&lt;th&gt;Notes
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;*emphasis*&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;&lt;em&gt;emphasis&lt;/em&gt;
+    &lt;/td&gt;&lt;td&gt;Normally rendered as italics.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;**strong emphasis**&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;&lt;strong&gt;strong emphasis&lt;/strong&gt;
+    &lt;/td&gt;&lt;td&gt;Normally rendered as boldface.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;`interpreted text`&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;(see note at right)
+    &lt;/td&gt;&lt;td&gt;The rendering and &lt;em&gt;meaning&lt;/em&gt; of interpreted text is
+    domain- or application-dependent.  It can be used for things
+    like index entries or explicit descriptive markup (like program
+    identifiers).
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;``inline literal``&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;&lt;code&gt;inline literal&lt;/code&gt;
+    &lt;/td&gt;&lt;td&gt;Normally rendered as monospaced text. Spaces should be
+    preserved, but line breaks will not be.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;reference_&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;&lt;a href="http://yongchen.org/posts/quickref/#hyperlink-targets"&gt;reference&lt;/a&gt;
+    &lt;/td&gt;&lt;td&gt;A simple, one-word hyperlink reference.  See &lt;a href="http://yongchen.org/posts/quickref/#hyperlink-targets"&gt;Hyperlink Targets&lt;/a&gt;.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;`phrase reference`_&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;&lt;a href="http://yongchen.org/posts/quickref/#hyperlink-targets"&gt;phrase reference&lt;/a&gt;
+    &lt;/td&gt;&lt;td&gt;A hyperlink reference with spaces or punctuation needs to be
+    quoted with backquotes.  See &lt;a href="http://yongchen.org/posts/quickref/#hyperlink-targets"&gt;Hyperlink Targets&lt;/a&gt;.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;anonymous__&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;&lt;a href="http://yongchen.org/posts/quickref/#hyperlink-targets"&gt;anonymous&lt;/a&gt;
+    &lt;/td&gt;&lt;td&gt;With two underscores instead of one, both simple and phrase
+    references may be anonymous (the reference text is not repeated
+    at the target).  See &lt;a href="http://yongchen.org/posts/quickref/#hyperlink-targets"&gt;Hyperlink Targets&lt;/a&gt;.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;_`inline internal target`&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;&lt;a name="inline-internal-target"&gt;inline internal target&lt;/a&gt;
+    &lt;/td&gt;&lt;td&gt;A crossreference target within text.
+    See &lt;a href="http://yongchen.org/posts/quickref/#hyperlink-targets"&gt;Hyperlink Targets&lt;/a&gt;.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;|substitution reference|&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;(see note at right)
+    &lt;/td&gt;&lt;td&gt;The result is substituted in from the &lt;a href="http://yongchen.org/posts/quickref/#substitution-references-and-definitions"&gt;substitution
+    definition&lt;/a&gt;.  It could be text, an image, a hyperlink, or a
+    combination of these and others.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;footnote reference [1]_&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;footnote reference &lt;sup&gt;&lt;a href="http://yongchen.org/posts/quickref/#footnotes"&gt;1&lt;/a&gt;&lt;/sup&gt;
+    &lt;/td&gt;&lt;td&gt;See &lt;a href="http://yongchen.org/posts/quickref/#footnotes"&gt;Footnotes&lt;/a&gt;.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;citation reference [CIT2002]_&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;citation reference &lt;a href="http://yongchen.org/posts/quickref/#citations"&gt;[CIT2002]&lt;/a&gt;
+    &lt;/td&gt;&lt;td&gt;See &lt;a href="http://yongchen.org/posts/quickref/#citations"&gt;Citations&lt;/a&gt;.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td nowrap&gt;&lt;samp&gt;http://docutils.sf.net/&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;&lt;a href="http://docutils.sf.net/"&gt;http://docutils.sf.net/&lt;/a&gt;
+    &lt;/td&gt;&lt;td&gt;A standalone hyperlink.
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;p&gt;Asterisk, backquote, vertical bar, and underscore are inline
+    delimiter characters. Asterisk, backquote, and vertical bar act
+    like quote marks; matching characters surround the marked-up word
+    or phrase, whitespace or other quoting is required outside them,
+    and there can't be whitespace just inside them. If you want to use
+    inline delimiter characters literally, &lt;a href="http://yongchen.org/posts/quickref/#escaping"&gt;escape
+    (with backslash)&lt;/a&gt; or quote them (with double backquotes; i.e.
+    use inline literals).
+
+    &lt;/p&gt;&lt;p&gt;In detail, the reStructuredText specification says that in
+    inline markup, the following rules apply to start-strings and
+    end-strings (inline markup delimiters):
+
+    &lt;/p&gt;&lt;ol&gt;
+    &lt;li&gt;The start-string must start a text block or be
+    immediately preceded by whitespace or any of 
+    &lt;samp&gt;' " ( [ {&lt;/samp&gt; or &lt;samp&gt;&amp;lt;&lt;/samp&gt;.
+    &lt;/li&gt;&lt;li&gt;The start-string must be immediately followed by non-whitespace.
+    &lt;/li&gt;&lt;li&gt;The end-string must be immediately preceded by non-whitespace.
+    &lt;/li&gt;&lt;li&gt;The end-string must end a text block (end of document or
+    followed by a blank line) or be immediately followed by whitespace
+    or any of &lt;samp&gt;' " . , : ; ! ? - ) ] } / \&lt;/samp&gt;
+    or &lt;samp&gt;&amp;gt;&lt;/samp&gt;.
+    &lt;/li&gt;&lt;li&gt;If a start-string is immediately preceded by one of 
+    &lt;samp&gt;' " ( [ {&lt;/samp&gt; or &lt;samp&gt;&amp;lt;&lt;/samp&gt;, it must not be
+    immediately followed by the corresponding character from 
+    &lt;samp&gt;' " ) ] }&lt;/samp&gt; or &lt;samp&gt;&amp;gt;&lt;/samp&gt;.
+    &lt;/li&gt;&lt;li&gt;An end-string must be separated by at least one
+    character from the start-string.
+    &lt;/li&gt;&lt;li&gt;An &lt;a href="http://yongchen.org/posts/quickref/#escaping"&gt;unescaped&lt;/a&gt; backslash preceding a
+    start-string or end-string will disable markup recognition, except
+    for the end-string of inline literals.
+    &lt;/li&gt;&lt;/ol&gt;
+
+    &lt;p&gt;Also remember that inline markup may not be nested (well,
+    except that inline literals can contain any of the other inline
+    markup delimiter characters, but that doesn't count because
+    nothing is processed).
+
+    &lt;/p&gt;&lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="escaping" class="backref"&gt;Escaping with Backslashes&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#escaping-mechanism"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;reStructuredText uses backslashes ("\") to override the special
+    meaning given to markup characters and get the literal characters
+    themselves. To get a literal backslash, use an escaped backslash
+    ("\\"). For example:
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Raw reStructuredText
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;&lt;td&gt;
+        &lt;samp&gt;*escape* ``with`` "\"&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;&lt;em&gt;escape&lt;/em&gt; &lt;samp&gt;with&lt;/samp&gt; ""
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;&lt;td&gt;
+        &lt;samp&gt;\*escape* \``with`` "\\"&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;*escape* ``with`` "\"
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;p&gt;In Python strings it will, of course, be necessary
+    to escape any backslash characters so that they actually
+    &lt;em&gt;reach&lt;/em&gt; reStructuredText.
+    The simplest way to do this is to use raw strings:
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Python string
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;&lt;td&gt;
+        &lt;samp&gt;r"""\*escape* \`with` "\\""""&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;*escape* `with` "\"
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;&lt;td&gt;
+        &lt;samp&gt; """\\*escape* \\`with` "\\\\""""&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;*escape* `with` "\"
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;&lt;td&gt;
+        &lt;samp&gt; """\*escape* \`with` "\\""""&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;&lt;em&gt;escape&lt;/em&gt; with ""
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="section-structure" class="backref"&gt;Section Structure&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#sections"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;samp&gt;=====&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;Title&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;=====&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;Subtitle&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;--------&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;Titles are underlined (or over-&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;and underlined) with a printing&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;nonalphanumeric 7-bit ASCII&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;character. Recommended choices&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;are "``= - ` : ' " ~ ^ _ * + # &amp;lt; &amp;gt;``".&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;The underline/overline must be at&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;least as long as the title text.&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;A lone top-level (sub)section&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;is lifted up to be the document's&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;(sub)title.&lt;/samp&gt;
+
+    &lt;/td&gt;&lt;td&gt;
+        &lt;font size="+2"&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;/font&gt;
+        &lt;p&gt;&lt;font size="+1"&gt;&lt;strong&gt;Subtitle&lt;/strong&gt;&lt;/font&gt;
+        &lt;/p&gt;&lt;p&gt;Titles are underlined (or over-
+        and underlined) with a printing
+        nonalphanumeric 7-bit ASCII
+        character. Recommended choices
+        are "&lt;samp&gt;= - ` : ' " ~ ^ _ * + # &amp;lt; &amp;gt;&lt;/samp&gt;".
+        The underline/overline must be at
+        least as long as the title text.
+        &lt;/p&gt;&lt;p&gt;A lone top-level (sub)section is
+        lifted up to be the document's
+        (sub)title.
+    &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="paragraphs" class="backref"&gt;Paragraphs&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#paragraphs"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;p&gt;&lt;samp&gt;This is a paragraph.&lt;/samp&gt;
+
+&lt;/p&gt;&lt;p&gt;&lt;samp&gt;Paragraphs line up at their left&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;edges, and are normally separated&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;by blank lines.&lt;/samp&gt;
+
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        &lt;p&gt;This is a paragraph.
+
+        &lt;/p&gt;&lt;p&gt;Paragraphs line up at their left edges, and are normally
+        separated by blank lines.
+
+    &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="bullet-lists" class="backref"&gt;Bullet Lists&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#bullet-lists"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;samp&gt;Bullet lists:&lt;/samp&gt;
+
+&lt;p&gt;&lt;samp&gt;- This is item 1&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;- This is item 2&lt;/samp&gt;
+
+&lt;/p&gt;&lt;p&gt;&lt;samp&gt;- Bullets are "-", "*" or "+".&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  Continuing text must be aligned&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  after the bullet and whitespace.&lt;/samp&gt;
+
+&lt;/p&gt;&lt;p&gt;&lt;samp&gt;Note that a blank line is required&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;before the first item and after the&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;last, but is optional between items.&lt;/samp&gt;
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;Bullet lists:
+        &lt;ul&gt;
+        &lt;li&gt;This is item 1
+        &lt;/li&gt;&lt;li&gt;This is item 2
+        &lt;/li&gt;&lt;li&gt;Bullets are "-", "*" or "+".
+        Continuing text must be aligned
+        after the bullet and whitespace.
+        &lt;/li&gt;&lt;/ul&gt;
+        &lt;p&gt;Note that a blank line is required before the first
+        item and after the last, but is optional between items.
+    &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="enumerated-lists" class="backref"&gt;Enumerated Lists&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#enumerated-lists"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;samp&gt;Enumerated lists:&lt;/samp&gt;
+
+&lt;p&gt;&lt;samp&gt;3. This is the first item&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;4. This is the second item&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;5. Enumerators are arabic numbers,&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;   single letters, or roman numerals&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;6. List items should be sequentially&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;   numbered, but need not start at 1&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;   (although not all formatters will&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;   honour the first index).&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;#. This item is auto-enumerated&lt;/samp&gt;
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;Enumerated lists:
+        &lt;ol type="1"&gt;
+        &lt;li value="3"&gt;This is the first item
+        &lt;/li&gt;&lt;li&gt;This is the second item
+        &lt;/li&gt;&lt;li&gt;Enumerators are arabic numbers, single letters,
+        or roman numerals
+        &lt;/li&gt;&lt;li&gt;List items should be sequentially numbered,
+        but need not start at 1 (although not all
+        formatters will honour the first index).
+        &lt;/li&gt;&lt;li&gt;This item is auto-enumerated
+        &lt;/li&gt;&lt;/ol&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="definition-lists" class="backref"&gt;Definition Lists&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#definition-lists"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;samp&gt;Definition lists:&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;what&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  Definition lists associate a term with&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  a definition.&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;how&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  The term is a one-line phrase, and the&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  definition is one or more paragraphs or&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  body elements, indented relative to the&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  term. Blank lines are not allowed&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  between term and definition.&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;Definition lists:
+        &lt;dl&gt;
+        &lt;dt&gt;&lt;strong&gt;what&lt;/strong&gt;
+        &lt;/dt&gt;&lt;dd&gt;Definition lists associate a term with
+        a definition.
+
+        &lt;/dd&gt;&lt;dt&gt;&lt;strong&gt;how&lt;/strong&gt;
+        &lt;/dt&gt;&lt;dd&gt;The term is a one-line phrase, and the
+        definition is one or more paragraphs or
+        body elements, indented relative to the
+        term.  Blank lines are not allowed
+        between term and definition.
+        &lt;/dd&gt;&lt;/dl&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="field-lists" class="backref"&gt;Field Lists&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#field-lists"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;samp&gt;:Authors:&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;    Tony J. (Tibs) Ibbs,&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;    David Goodger&lt;/samp&gt;
+
+&lt;p&gt;&lt;samp&gt;    (and sundry other good-natured folks)&lt;/samp&gt;
+
+&lt;/p&gt;&lt;p&gt;&lt;samp&gt;:Version: 1.0 of 2001/08/08&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;:Dedication: To my father.&lt;/samp&gt;
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        &lt;table class="table"&gt;
+        &lt;tr valign="top"&gt;
+        &lt;td&gt;&lt;strong&gt;Authors:&lt;/strong&gt;
+        &lt;/td&gt;&lt;td&gt;Tony J. (Tibs) Ibbs,
+        David Goodger
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(and sundry other good-natured folks)
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Version:&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;1.0 of 2001/08/08
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Dedication:&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;To my father.
+        &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;p&gt;Field lists are used as part of an extension syntax, such as
+    options for &lt;a href="http://yongchen.org/posts/quickref/#directives"&gt;directives&lt;/a&gt;, or database-like
+    records meant for further processing.  Field lists may also be
+    used as generic two-column table constructs in documents.
+
+    &lt;/p&gt;&lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="option-lists" class="backref"&gt;Option Lists&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#option-lists"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;p&gt;&lt;samp&gt;
+-a            command-line option "a"
+&lt;br&gt;-b file       options can have arguments
+&lt;br&gt;              and long descriptions
+&lt;br&gt;--long        options can be long also
+&lt;br&gt;--input=file  long options can also have
+&lt;br&gt;              arguments
+&lt;br&gt;/V            DOS/VMS-style options too
+&lt;/samp&gt;
+
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        &lt;table class="table" border="0" width="100%"&gt;
+        &lt;tbody valign="top"&gt;
+            &lt;tr&gt;
+            &lt;td width="30%"&gt;&lt;samp&gt;-a&lt;/samp&gt;
+            &lt;/td&gt;&lt;td&gt;command-line option "a"
+            &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;
+            &lt;td&gt;&lt;samp&gt;-b &lt;i&gt;file&lt;/i&gt;&lt;/samp&gt;
+            &lt;/td&gt;&lt;td&gt;options can have arguments and long descriptions
+            &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;
+            &lt;td&gt;&lt;samp&gt;--long&lt;/samp&gt;
+            &lt;/td&gt;&lt;td&gt;options can be long also
+            &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;
+            &lt;td&gt;&lt;samp&gt;--input=&lt;i&gt;file&lt;/i&gt;&lt;/samp&gt;
+            &lt;/td&gt;&lt;td&gt;long options can also have arguments
+            &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;
+            &lt;td&gt;&lt;samp&gt;/V&lt;/samp&gt;
+            &lt;/td&gt;&lt;td&gt;DOS/VMS-style options too
+        &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;p&gt;There must be at least two spaces between the option and the
+    description.
+
+    &lt;/p&gt;&lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="literal-blocks" class="backref"&gt;Literal Blocks&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#literal-blocks"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;samp&gt;A paragraph containing only two colons&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;indicates that the following indented&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;or quoted text is a literal block.&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;::&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;  Whitespace, newlines, blank lines, and&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  all kinds of markup (like *this* or&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  \this) is preserved by literal blocks.&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;  The paragraph containing only '::'&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  will be omitted from the result.&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;The ``::`` may be tacked onto the very&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;end of any paragraph. The ``::`` will be&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;omitted if it is preceded by whitespace.&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;The ``::`` will be converted to a single&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;colon if preceded by text, like this::&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;  It's very convenient to use this form.&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;Literal blocks end when text returns to&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;the preceding paragraph's indentation.&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;This means that something like this&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;is possible::&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;      We start here&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;    and continue here&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  and end here.&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;Per-line quoting can also be used on&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;unindented literal blocks::&lt;/samp&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;samp&gt;&amp;gt; Useful for quotes from email and&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;&amp;gt; for Haskell literate programming.&lt;/samp&gt;
+
+    &lt;/td&gt;&lt;td&gt;
+        &lt;p&gt;A paragraph containing only two colons
+indicates that the following indented or quoted
+text is a literal block.
+
+        &lt;/p&gt;&lt;pre&gt;
+Whitespace, newlines, blank lines, and
+all kinds of markup (like *this* or
+\this) is preserved by literal blocks.
+
+The paragraph containing only '::'
+will be omitted from the result.&lt;/pre&gt;
+
+        &lt;p&gt;The &lt;samp&gt;::&lt;/samp&gt; may be tacked onto the very
+end of any paragraph. The &lt;samp&gt;::&lt;/samp&gt; will be
+omitted if it is preceded by whitespace.
+The &lt;samp&gt;::&lt;/samp&gt; will be converted to a single
+colon if preceded by text, like this:
+
+        &lt;/p&gt;&lt;pre&gt;
+It's very convenient to use this form.&lt;/pre&gt;
+
+        &lt;p&gt;Literal blocks end when text returns to
+the preceding paragraph's indentation.
+This means that something like this is possible:
+
+        &lt;/p&gt;&lt;pre&gt;
+    We start here
+    and continue here
+and end here.&lt;/pre&gt;
+
+        &lt;p&gt;Per-line quoting can also be used on
+unindented literal blocks:
+
+        &lt;/p&gt;&lt;pre&gt;
+&amp;gt; Useful for quotes from email and
+&amp;gt; for Haskell literate programming.&lt;/pre&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="line-blocks" class="backref"&gt;Line Blocks&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#line-blocks"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;samp&gt;| Line blocks are useful for addresses,&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;| verse, and adornment-free lists.&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;|&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;| Each new line begins with a&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;| vertical bar ("|").&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;|     Line breaks and initial indents&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;|     are preserved.&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;| Continuation lines are wrapped&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  portions of long lines; they begin&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  with spaces in place of vertical bars.&lt;/samp&gt;
+
+    &lt;/td&gt;&lt;td&gt;
+        &lt;div class="line-block"&gt;
+        &lt;div class="line"&gt;Line blocks are useful for addresses,&lt;/div&gt;
+        &lt;div class="line"&gt;verse, and adornment-free lists.&lt;/div&gt;
+        &lt;div class="line"&gt;&lt;br&gt;&lt;/div&gt;
+        &lt;div class="line"&gt;Each new line begins with a&lt;/div&gt;
+        &lt;div class="line"&gt;vertical bar ("|").&lt;/div&gt;
+        &lt;div class="line-block"&gt;
+            &lt;div class="line"&gt;Line breaks and initial indents&lt;/div&gt;
+            &lt;div class="line"&gt;are preserved.&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="line"&gt;Continuation lines are wrapped portions
+            of long lines; they begin
+            with spaces in place of vertical bars.&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="block-quotes" class="backref"&gt;Block Quotes&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#block-quotes"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;samp&gt;Block quotes are just:&lt;/samp&gt;
+
+&lt;p&gt;&lt;samp&gt;    Indented paragraphs,&lt;/samp&gt;
+
+&lt;/p&gt;&lt;p&gt;&lt;samp&gt;        and they may nest.&lt;/samp&gt;
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        Block quotes are just:
+        &lt;blockquote&gt;
+        &lt;p&gt;Indented paragraphs,
+        &lt;/p&gt;&lt;blockquote&gt;
+        &lt;p&gt;and they may nest.
+        &lt;/p&gt;&lt;/blockquote&gt;
+        &lt;/blockquote&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;p&gt;Use &lt;a href="http://yongchen.org/posts/quickref/#comments"&gt;empty comments&lt;/a&gt; to separate indentation
+    contexts, such as block quotes and directive contents.&lt;/p&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="doctest-blocks" class="backref"&gt;Doctest Blocks&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#doctest-blocks"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;p&gt;&lt;samp&gt;Doctest blocks are interactive
+&lt;br&gt;Python sessions. They begin with
+&lt;br&gt;"``&amp;gt;&amp;gt;&amp;gt;``" and end with a blank line.&lt;/samp&gt;
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;&amp;gt;&amp;gt;&amp;gt; print "This is a doctest block."
+&lt;br&gt;This is a doctest block.&lt;/samp&gt;
+
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        &lt;p&gt;Doctest blocks are interactive
+        Python sessions. They begin with
+        "&lt;samp&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/samp&gt;" and end with a blank line.
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;&amp;gt;&amp;gt;&amp;gt; print "This is a doctest block."
+&lt;br&gt;This is a doctest block.&lt;/samp&gt;
+    &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;p&gt;"The &lt;a href="http://www.python.org/doc/current/lib/module-doctest.html"&gt;doctest&lt;/a&gt;
+    module searches a module's docstrings for text that looks like an
+    interactive Python session, then executes all such sessions to
+    verify they still work exactly as shown." (From the doctest docs.)
+
+    &lt;/p&gt;&lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="tables" class="backref"&gt;Tables&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#tables"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;There are two syntaxes for tables in reStructuredText.  Grid
+    tables are complete but cumbersome to create.  Simple tables are
+    easy to create but limited (no row spans, etc.).&lt;/p&gt;
+
+    &lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;p&gt;&lt;samp&gt;Grid table:&lt;/samp&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;samp&gt;+------------+------------+-----------+&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;| Header 1   | Header 2   | Header 3  |&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;+============+============+===========+&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;| body row 1 | column 2   | column 3  |&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;+------------+------------+-----------+&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;| body row 2 | Cells may span columns.|&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;+------------+------------+-----------+&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;| body row 3 | Cells may  | - Cells   |&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;+------------+ span rows. | - contain |&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;| body row 4 |            | - blocks. |&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;+------------+------------+-----------+&lt;/samp&gt;&lt;/p&gt;
+    &lt;/td&gt;&lt;td&gt;
+        &lt;p&gt;Grid table:&lt;/p&gt;
+        &lt;table class="table" border="1"&gt;
+        &lt;thead valign="bottom"&gt;
+            &lt;tr&gt;
+            &lt;th&gt;Header 1
+            &lt;/th&gt;&lt;th&gt;Header 2
+            &lt;/th&gt;&lt;th&gt;Header 3
+            &lt;/th&gt;&lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody valign="top"&gt;
+            &lt;tr&gt;
+            &lt;td&gt;body row 1
+            &lt;/td&gt;&lt;td&gt;column 2
+            &lt;/td&gt;&lt;td&gt;column 3
+            &lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;
+            &lt;td&gt;body row 2
+            &lt;/td&gt;&lt;td colspan="2"&gt;Cells may span columns.
+            &lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;
+            &lt;td&gt;body row 3
+            &lt;/td&gt;&lt;td rowspan="2"&gt;Cells may&lt;br&gt;span rows.
+            &lt;/td&gt;&lt;td rowspan="2"&gt;
+                &lt;ul&gt;
+                &lt;li&gt;Cells
+                &lt;/li&gt;&lt;li&gt;contain
+                &lt;/li&gt;&lt;li&gt;blocks.
+                &lt;/li&gt;&lt;/ul&gt;
+            &lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;
+            &lt;td&gt;body row 4
+            &lt;/td&gt;&lt;/tr&gt;
+        &lt;/tbody&gt;&lt;/table&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td&gt;
+&lt;p&gt;&lt;samp&gt;Simple table:&lt;/samp&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;samp&gt;=====  =====  ======&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;   Inputs     Output&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;------------  ------&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;  A      B    A or B&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;=====  =====  ======&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;False  False  False&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;True   False  True&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;False  True   True&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;True   True   True&lt;/samp&gt;
+&lt;br&gt;&lt;samp&gt;=====  =====  ======&lt;/samp&gt;&lt;/p&gt;
+
+    &lt;/td&gt;&lt;td&gt;
+        &lt;p&gt;Simple table:&lt;/p&gt;
+        &lt;table class="table" border="1"&gt;
+        &lt;colgroup&gt;
+            &lt;col width="31%"&gt;
+            &lt;col width="31%"&gt;
+            &lt;col width="38%"&gt;
+        &lt;/colgroup&gt;
+        &lt;thead valign="bottom"&gt;
+            &lt;tr&gt;
+            &lt;th colspan="2"&gt;Inputs
+            &lt;/th&gt;&lt;th&gt;Output
+            &lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;
+            &lt;th&gt;A
+            &lt;/th&gt;&lt;th&gt;B
+            &lt;/th&gt;&lt;th&gt;A or B
+        &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody valign="top"&gt;
+            &lt;tr&gt;
+            &lt;td&gt;False
+            &lt;/td&gt;&lt;td&gt;False
+            &lt;/td&gt;&lt;td&gt;False
+            &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;
+            &lt;td&gt;True
+            &lt;/td&gt;&lt;td&gt;False
+            &lt;/td&gt;&lt;td&gt;True
+            &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;
+            &lt;td&gt;False
+            &lt;/td&gt;&lt;td&gt;True
+            &lt;/td&gt;&lt;td&gt;True
+            &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;
+            &lt;td&gt;True
+            &lt;/td&gt;&lt;td&gt;True
+            &lt;/td&gt;&lt;td&gt;True
+        &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="transitions" class="backref"&gt;Transitions&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#transitions"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;p&gt;&lt;samp&gt;
+A transition marker is a horizontal line
+&lt;br&gt;of 4 or more repeated punctuation
+&lt;br&gt;characters.&lt;/samp&gt;
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;------------&lt;/samp&gt;
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;A transition should not begin or end a
+&lt;br&gt;section or document, nor should two
+&lt;br&gt;transitions be immediately adjacent.&lt;/samp&gt;
+
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        &lt;p&gt;A transition marker is a horizontal line
+        of 4 or more repeated punctuation
+        characters.&lt;/p&gt;
+
+        &lt;hr&gt;
+
+        &lt;p&gt;A transition should not begin or end a
+        section or document, nor should two
+        transitions be immediately adjacent.
+    &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;p&gt;Transitions are commonly seen in novels and short fiction, as a
+    gap spanning one or more lines, marking text divisions or
+    signaling changes in subject, time, point of view, or emphasis.
+
+    &lt;/p&gt;&lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="explicit-markup" class="backref"&gt;Explicit Markup&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;Explicit markup blocks are used for constructs which float
+    (footnotes), have no direct paper-document representation
+    (hyperlink targets, comments), or require specialized processing
+    (directives).  They all begin with two periods and whitespace, the
+    "explicit markup start".
+
+    &lt;/p&gt;&lt;h4&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="footnotes" class="backref"&gt;Footnotes&lt;/a&gt;&lt;/h4&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#footnotes"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;samp&gt;Footnote references, like [5]_.&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;Note that footnotes may get&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;rearranged, e.g., to the bottom of&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;the "page".&lt;/samp&gt;
+
+        &lt;p&gt;&lt;samp&gt;.. [5] A numerical footnote. Note&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;   there's no colon after the ``]``.&lt;/samp&gt;
+
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        Footnote references, like &lt;sup&gt;&lt;a href="http://yongchen.org/posts/quickref/#5"&gt;5&lt;/a&gt;&lt;/sup&gt;.
+        Note that footnotes may get rearranged, e.g., to the bottom of
+        the "page".
+
+        &lt;p&gt;&lt;/p&gt;&lt;table class="table"&gt;
+        &lt;tr&gt;&lt;td colspan="2"&gt;&lt;hr&gt;
+        &lt;!-- &lt;tr&gt;&lt;td colspan="2"&gt;Footnotes: --&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;a name="5"&gt;&lt;strong&gt;[5]&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;&lt;td&gt; A numerical footnote.
+        Note there's no colon after the &lt;samp&gt;]&lt;/samp&gt;.
+        &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;samp&gt;Autonumbered footnotes are&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;possible, like using [#]_ and [#]_.&lt;/samp&gt;
+        &lt;p&gt;&lt;samp&gt;.. [#] This is the first one.&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;.. [#] This is the second one.&lt;/samp&gt;
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;They may be assigned 'autonumber&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;labels' - for instance,
+        &lt;br&gt;[#fourth]_ and [#third]_.&lt;/samp&gt;
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;.. [#third] a.k.a. third_&lt;/samp&gt;
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;.. [#fourth] a.k.a. fourth_&lt;/samp&gt;
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        Autonumbered footnotes are possible, like using &lt;sup&gt;&lt;a href="http://yongchen.org/posts/quickref/#auto1"&gt;1&lt;/a&gt;&lt;/sup&gt; and &lt;sup&gt;&lt;a href="http://yongchen.org/posts/quickref/#auto2"&gt;2&lt;/a&gt;&lt;/sup&gt;.
+
+        &lt;p&gt;They may be assigned 'autonumber labels' - for instance,
+        &lt;sup&gt;&lt;a href="http://yongchen.org/posts/quickref/#fourth"&gt;4&lt;/a&gt;&lt;/sup&gt; and &lt;sup&gt;&lt;a href="http://yongchen.org/posts/quickref/#third"&gt;3&lt;/a&gt;&lt;/sup&gt;.
+
+        &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table"&gt;
+        &lt;tr&gt;&lt;td colspan="2"&gt;&lt;hr&gt;
+        &lt;!-- &lt;tr&gt;&lt;td colspan="2"&gt;Footnotes: --&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;a name="auto1"&gt;&lt;strong&gt;[1]&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;&lt;td&gt; This is the first one.
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;a name="auto2"&gt;&lt;strong&gt;[2]&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;&lt;td&gt; This is the second one.
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;a name="third"&gt;&lt;strong&gt;[3]&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;&lt;td&gt; a.k.a. &lt;a href="http://yongchen.org/posts/quickref/#third"&gt;third&lt;/a&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;a name="fourth"&gt;&lt;strong&gt;[4]&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;&lt;td&gt; a.k.a. &lt;a href="http://yongchen.org/posts/quickref/#fourth"&gt;fourth&lt;/a&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;samp&gt;Auto-symbol footnotes are also&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;possible, like this: [*]_ and [*]_.&lt;/samp&gt;
+        &lt;p&gt;&lt;samp&gt;.. [*] This is the first one.&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;.. [*] This is the second one.&lt;/samp&gt;
+
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        Auto-symbol footnotes are also
+        possible, like this: &lt;sup&gt;&lt;a href="http://yongchen.org/posts/quickref/#symbol1"&gt;*&lt;/a&gt;&lt;/sup&gt;
+        and &lt;sup&gt;&lt;a href="http://yongchen.org/posts/quickref/#symbol2"&gt;†&lt;/a&gt;&lt;/sup&gt;.
+
+        &lt;p&gt;&lt;/p&gt;&lt;table class="table"&gt;
+        &lt;tr&gt;&lt;td colspan="2"&gt;&lt;hr&gt;
+        &lt;!-- &lt;tr&gt;&lt;td colspan="2"&gt;Footnotes: --&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;a name="symbol1"&gt;&lt;strong&gt;[*]&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;&lt;td&gt; This is the first symbol footnote
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;a name="symbol2"&gt;&lt;strong&gt;[†]&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;&lt;td&gt; This is the second one.
+        &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;p&gt;The numbering of auto-numbered footnotes is determined by the
+    order of the footnotes, not of the references. For auto-numbered
+    footnote references without autonumber labels
+    ("&lt;samp&gt;[#]_&lt;/samp&gt;"), the references and footnotes must be in the
+    same relative order. Similarly for auto-symbol footnotes
+    ("&lt;samp&gt;[*]_&lt;/samp&gt;").
+
+    &lt;/p&gt;&lt;h4&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="citations" class="backref"&gt;Citations&lt;/a&gt;&lt;/h4&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#citations"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;samp&gt;Citation references, like [CIT2002]_.&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;Note that citations may get&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;rearranged, e.g., to the bottom of&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;the "page".&lt;/samp&gt;
+
+        &lt;p&gt;&lt;samp&gt;.. [CIT2002] A citation&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;   (as often used in journals).&lt;/samp&gt;
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;Citation labels contain alphanumerics,&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;underlines, hyphens and fullstops.&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;Case is not significant.&lt;/samp&gt;
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;Given a citation like [this]_, one&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;can also refer to it like this_.&lt;/samp&gt;
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;.. [this] here.&lt;/samp&gt;
+
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        Citation references, like &lt;a href="http://yongchen.org/posts/quickref/#cit2002"&gt;[CIT2002]&lt;/a&gt;.
+        Note that citations may get rearranged, e.g., to the bottom of
+        the "page".
+
+        &lt;p&gt;Citation labels contain alphanumerics, underlines, hyphens
+        and fullstops.  Case is not significant.
+
+        &lt;/p&gt;&lt;p&gt;Given a citation like &lt;a href="http://yongchen.org/posts/quickref/#this"&gt;[this]&lt;/a&gt;, one
+        can also refer to it like &lt;a href="http://yongchen.org/posts/quickref/#this"&gt;this&lt;/a&gt;.
+
+        &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table"&gt;
+        &lt;tr&gt;&lt;td colspan="2"&gt;&lt;hr&gt;
+        &lt;!-- &lt;tr&gt;&lt;td colspan="2"&gt;Citations: --&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;a name="cit2002"&gt;&lt;strong&gt;[CIT2002]&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;&lt;td&gt; A citation
+        (as often used in journals).
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;a name="this"&gt;&lt;strong&gt;[this]&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;&lt;td&gt; here.
+        &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h4&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="hyperlink-targets" class="backref"&gt;Hyperlink Targets&lt;/a&gt;&lt;/h4&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#hyperlink-targets"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;h5&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="external-hyperlink-targets" class="backref"&gt;External Hyperlink Targets&lt;/a&gt;&lt;/h5&gt;
+
+    &lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+
+    &lt;tr valign="top"&gt;
+    &lt;td rowspan="2"&gt;
+        &lt;samp&gt;External hyperlinks, like Python_.&lt;/samp&gt;
+
+        &lt;p&gt;&lt;samp&gt;.. _Python: http://www.python.org/&lt;/samp&gt;
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        &lt;table class="table" width="100%"&gt;
+        &lt;tr bgcolor="#99CCFF"&gt;&lt;td&gt;&lt;em&gt;Fold-in form&lt;/em&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;External hyperlinks, like
+        &lt;a href="http://www.python.org/"&gt;Python&lt;/a&gt;.
+        &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;table class="table" width="100%"&gt;
+        &lt;tr bgcolor="#99CCFF"&gt;&lt;td&gt;&lt;em&gt;Call-out form&lt;/em&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;External hyperlinks, like
+        &lt;a href="http://yongchen.org/posts/quickref/#labPython"&gt;&lt;i&gt;Python&lt;/i&gt;&lt;/a&gt;.
+
+        &lt;p&gt;&lt;/p&gt;&lt;table class="table"&gt;
+            &lt;tr&gt;&lt;td colspan="2"&gt;&lt;hr&gt;
+            &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;a name="labPython"&gt;&lt;i&gt;Python:&lt;/i&gt;&lt;/a&gt;
+            &lt;/td&gt;&lt;td&gt; &lt;a href="http://www.python.org/"&gt;http://www.python.org/&lt;/a&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;p&gt;"&lt;em&gt;Fold-in&lt;/em&gt;" is the representation typically used in HTML
+    documents (think of the indirect hyperlink being "folded in" like
+    ingredients into a cake), and "&lt;em&gt;call-out&lt;/em&gt;" is more suitable for
+    printed documents, where the link needs to be presented explicitly, for
+    example as a footnote.  You can force usage of the call-out form by
+    using the
+    "&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#target-notes"&gt;target-notes&lt;/a&gt;"
+    directive.
+
+    &lt;/p&gt;&lt;p&gt;reStructuredText also provides for &lt;b&gt;embedded URIs&lt;/b&gt; (&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#embedded-uris"&gt;details&lt;/a&gt;),
+    a convenience at the expense of readability.  A hyperlink
+    reference may directly embed a target URI inline, within angle
+    brackets.  The following is exactly equivalent to the example above:
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+
+    &lt;tr valign="top"&gt;
+    &lt;td rowspan="2"&gt;
+        &lt;samp&gt;External hyperlinks, like `Python
+&lt;br&gt;&amp;lt;http://www.python.org/&amp;gt;`_.&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;External hyperlinks, like
+        &lt;a href="http://www.python.org/"&gt;Python&lt;/a&gt;.
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h5&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="internal-hyperlink-targets" class="backref"&gt;Internal Hyperlink Targets&lt;/a&gt;&lt;/h5&gt;
+
+    &lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+
+    &lt;tr valign="top"&gt;
+    &lt;td rowspan="2"&gt;&lt;samp&gt;Internal crossreferences, like example_.&lt;/samp&gt;
+
+        &lt;p&gt;&lt;samp&gt;.. _example:&lt;/samp&gt;
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;This is an example crossreference target.&lt;/samp&gt;
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        &lt;table class="table" width="100%"&gt;
+        &lt;tr bgcolor="#99CCFF"&gt;&lt;td&gt;&lt;em&gt;Fold-in form&lt;/em&gt;
+        &lt;!-- Note that some browsers may not like an "a" tag that --&gt;
+        &lt;!-- does not have any content, so we could arbitrarily   --&gt;
+        &lt;!-- use the first word as content - *or* just trust to   --&gt;
+        &lt;!-- luck!                                                --&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Internal crossreferences, like &lt;a href="http://yongchen.org/posts/quickref/#example-foldin"&gt;example&lt;/a&gt;
+        &lt;p&gt;&lt;a name="example-foldin"&gt;This&lt;/a&gt; is an example
+            crossreference target.
+        &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;table class="table" width="100%"&gt;
+        &lt;tr&gt;&lt;td bgcolor="#99CCFF"&gt;&lt;em&gt;Call-out form&lt;/em&gt;
+        &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Internal crossreferences, like &lt;a href="http://yongchen.org/posts/quickref/#example-callout"&gt;example&lt;/a&gt;
+
+        &lt;p&gt;&lt;a name="example-callout"&gt;&lt;i&gt;example:&lt;/i&gt;&lt;/a&gt;
+            &lt;br&gt;This is an example crossreference target.
+        &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h5&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="indirect-hyperlink-targets" class="backref"&gt;Indirect Hyperlink Targets&lt;/a&gt;&lt;/h5&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#indirect-hyperlink-targets"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;samp&gt;Python_ is `my favourite
+&lt;br&gt;programming language`__.&lt;/samp&gt;
+
+        &lt;p&gt;&lt;samp&gt;.. _Python: http://www.python.org/&lt;/samp&gt;
+
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;__ Python_&lt;/samp&gt;
+
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        &lt;p&gt;&lt;a href="http://www.python.org/"&gt;Python&lt;/a&gt; is
+        &lt;a href="http://www.python.org/"&gt;my favourite
+        programming language&lt;/a&gt;.
+
+    &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;p&gt;The second hyperlink target (the line beginning with
+    "&lt;samp&gt;__&lt;/samp&gt;") is both an indirect hyperlink target
+    (&lt;i&gt;indirectly&lt;/i&gt; pointing at the Python website via the
+    "&lt;samp&gt;Python_&lt;/samp&gt;" reference) and an &lt;b&gt;anonymous hyperlink
+    target&lt;/b&gt;. In the text, a double-underscore suffix is used to
+    indicate an &lt;b&gt;anonymous hyperlink reference&lt;/b&gt;.  In an anonymous
+    hyperlink target, the reference text is not repeated.  This is
+    useful for references with long text or throw-away references, but
+    the target should be kept close to the reference to prevent them
+    going out of sync.
+
+    &lt;/p&gt;&lt;h5&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="implicit-hyperlink-targets" class="backref"&gt;Implicit Hyperlink Targets&lt;/a&gt;&lt;/h5&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#implicit-hyperlink-targets"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;Section titles, footnotes, and citations automatically generate
+    hyperlink targets (the title text or footnote/citation label is
+    used as the hyperlink name).
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;&lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;samp&gt;Titles are targets, too&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;=======================&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;Implict references, like `Titles are&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;targets, too`_.&lt;/samp&gt;
+    &lt;/td&gt;&lt;td&gt;
+        &lt;font size="+2"&gt;&lt;strong&gt;&lt;a name="title"&gt;Titles are targets, too&lt;/a&gt;&lt;/strong&gt;&lt;/font&gt;
+        &lt;p&gt;Implict references, like &lt;a href="http://yongchen.org/posts/quickref/#title"&gt;Titles are
+        targets, too&lt;/a&gt;.
+    &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h4&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="directives" class="backref"&gt;Directives&lt;/a&gt;&lt;/h4&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#directives"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;Directives are a general-purpose extension mechanism, a way of
+    adding support for new constructs without adding new syntax.  For
+    a description of all standard directives, see &lt;a href="http://docutils.sourceforge.net/docs/ref/rst/directives.html"&gt;reStructuredText
+    Directives&lt;/a&gt;.
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;&lt;samp&gt;For instance:&lt;/samp&gt;
+
+        &lt;p&gt;&lt;samp&gt;.. image:: images/nikola.png&lt;/samp&gt;
+
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        For instance:
+        &lt;p&gt;&lt;img src="http://yongchen.org/images/nikola.png" alt="ball1"&gt;
+    &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h4&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="substitution-references-and-definitions" class="backref"&gt;Substitution References and Definitions&lt;/a&gt;&lt;/h4&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#substitution-definitions"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;Substitutions are like inline directives, allowing graphics and
+    arbitrary constructs within text.
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;&lt;samp&gt;
+The |Nikola| static site generator
+is named after Nikola Tesla.&lt;/samp&gt;
+
+        &lt;p&gt;&lt;samp&gt;
+.. |Nikola| image:: nikola.png&lt;/samp&gt;
+
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+
+        &lt;p&gt;The &lt;img src="http://yongchen.org/images/nikola.png" align="bottom" alt="Nikola"&gt; static
+        site generator is named after Nikola Tesla.
+
+    &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h4&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="comments" class="backref"&gt;Comments&lt;/a&gt;&lt;/h4&gt;
+
+    &lt;p&gt;(&lt;a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#comments"&gt;details&lt;/a&gt;)
+
+    &lt;/p&gt;&lt;p&gt;Any text which begins with an explicit markup start but doesn't
+    use the syntax of any of the constructs above, is a comment.
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;table class="table" border="1" width="100%" bgcolor="#ffffcc" cellpadding="3"&gt;
+    &lt;thead&gt;
+    &lt;tr align="left" bgcolor="#99CCFF"&gt;
+    &lt;th width="50%"&gt;Plain text
+    &lt;/th&gt;&lt;th width="50%"&gt;Typical result
+    &lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr valign="top"&gt;
+    &lt;td&gt;&lt;samp&gt;.. This text will not be shown&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;   (but, for instance, in HTML might be&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;   rendered as an HTML comment)&lt;/samp&gt;
+
+    &lt;/td&gt;&lt;td&gt; 
+        &lt;!-- This text will not be shown         --&gt;
+        &lt;!-- (but, for instance in HTML might be --&gt;
+        &lt;!-- rendered as an HTML comment)        --&gt;
+
+    &lt;/td&gt;&lt;/tr&gt;&lt;tr valign="top"&gt;
+    &lt;td&gt;
+        &lt;samp&gt;An "empty comment" does not&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;consume following blocks.&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;(An empty comment is ".." with&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;blank lines before and after.)&lt;/samp&gt;
+        &lt;p&gt;&lt;samp&gt;..&lt;/samp&gt;
+        &lt;/p&gt;&lt;p&gt;&lt;samp&gt;        So this block is not "lost",&lt;/samp&gt;
+        &lt;br&gt;&lt;samp&gt;        despite its indentation.&lt;/samp&gt;
+    &lt;/p&gt;&lt;/td&gt;&lt;td&gt;
+        An "empty comment" does not
+        consume following blocks.
+        (An empty comment is ".." with
+        blank lines before and after.)
+        &lt;blockquote&gt;
+        So this block is not "lost",
+        despite its indentation.
+        &lt;/blockquote&gt;
+    &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+    &lt;h3&gt;&lt;a href="http://yongchen.org/posts/quickref/#contents" name="getting-help" class="backref"&gt;Getting Help&lt;/a&gt;&lt;/h3&gt;
+
+    &lt;p&gt;Users who have questions or need assistance with Docutils or
+    reStructuredText should &lt;a href="mailto:docutils-users@lists.sourceforge.net"&gt;post a
+    message&lt;/a&gt; to the &lt;a href="http://lists.sourceforge.net/lists/listinfo/docutils-users"&gt;Docutils-Users mailing list&lt;/a&gt;.  The &lt;a href="http://docutils.sourceforge.net/"&gt;Docutils project web
+    site&lt;/a&gt; has more information.
+
+    &lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+    &lt;address&gt;
+    &lt;p&gt;Authors:
+    &lt;a href="http://www.tibsnjoan.co.uk/"&gt;Tibs&lt;/a&gt;
+    (&lt;a href="mailto:tibs@tibsnjoan.co.uk"&gt;&lt;tt&gt;tibs@tibsnjoan.co.uk&lt;/tt&gt;&lt;/a&gt;)
+    and David Goodger
+    (&lt;a href="mailto:goodger@python.org"&gt;goodger@python.org&lt;/a&gt;)
+    &lt;/p&gt;&lt;/address&gt;
+    &lt;!-- Created: Fri Aug 03 09:11:57 GMT Daylight Time 2001 --&gt;&lt;/div&gt;</description><guid>http://yongchen.org/posts/quickref/</guid><pubDate>Sat, 31 Mar 2012 02:00:00 GMT</pubDate></item></channel></rss>
